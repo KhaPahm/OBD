@@ -1,18 +1,11 @@
-// // Import express
-// const express = require('express');
+// Import express
+const express = require('express');
 
-// // Config environment variable
-// require('dotenv').config();
+// Config environment variable
+require('dotenv').config();
 
-// const port = process.env.PROT || 3000;
+const port = process.env.PROT || 3000;
 
-// const app = express();
-// app
+const app = express();
 
-let express = require('express');
-let app = express();
-let port = process.env.PORT || 3000;
-
-app.listen(port);
-
-console.log('RESTful API server started on: ' + port);
+app.listen(port, () => console.log(`Server is running in port: ${port}`))
