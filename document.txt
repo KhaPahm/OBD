@@ -1,0 +1,13 @@
+API:
+
+POST:
+    Login {
+        url: http://localhost:3000/user/login,
+        data: {
+            "name": "Kha_pham",
+            "password": "124"
+        },
+        dataType: "JSON"
+    }
+        
+    
