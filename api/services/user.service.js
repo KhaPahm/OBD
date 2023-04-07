@@ -2,6 +2,8 @@ const userRepository = require('../repositories/user.repository');
 const path = require('path');
 const bcrypt = require('bcrypt')
 
+// async function hashPassword(password) 
+
 async function getAccount (name) {
     try {
         const respone = await userRepository.getAccount(name);
@@ -37,6 +39,22 @@ async function logIn (name, password) {
     }
 }
 
+async function registerAccount(name, password, address, role = 1) {
+    try {
+        const checked = await userRepository.getAccount(name);
+        if(checked.length != 0) {
+            return false;
+        } else {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            await userRepository.registerAccount(name, hashedPassword, address, role);
+            return true;
+        }
+    } catch (err) {
+        throw new Error('Service: Cannot register account!');
+    }
+}
+
 module.exports = {
-    getAccount, logIn
+    getAccount, logIn, registerAccount
 }

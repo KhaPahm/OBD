@@ -13,7 +13,7 @@ async function getAccount(name) {
     }
 }
 
-async function registerAccount (name, hashedPassword, role = 1, address) { 
+async function registerAccount (name, hashedPassword, address, role = 1) { 
     try{
         const record = await db.query(
             `INSERT INTO User (Name, Password, Role, Address) VALUES (?, ?, ?, ?)`,

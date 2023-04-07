@@ -9,5 +9,15 @@ POST:
         },
         dataType: "JSON"
     }
+
+    RegisterAccount {
+        url: http://localhost:3000/user/register,
+        data: {
+            "name": "Kha_pham",
+            "password": "123",
+            "address": "19 Nguyen Huu Tho"
+        },
+        dataType: "JSON"
+    }
         
     
