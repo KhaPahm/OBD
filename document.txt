@@ -1,8 +1,9 @@
 API:
 
+--USER
 POST:
     Login {
-        url: http://localhost:3000/user/login,
+        url: http://localhost:3000/api/user/login,
         data: {
             "name": "Kha_pham",
             "password": "124"
@@ -11,7 +12,7 @@ POST:
     }
 
     RegisterAccount {
-        url: http://localhost:3000/user/register,
+        url: http://localhost:3000/api/user/register,
         data: {
             "name": "Kha_pham",
             "password": "123",
@@ -19,5 +20,42 @@ POST:
         },
         dataType: "JSON"
     }
+
+--VEHICLE 
+POST: 
+    Vehicle registration {
+        url: http://localhost:3000/api/vehicle,
+        data: {
+            "name": "vehicle_number",
+            "phone": "0123456789", //maximun 10 character
+            "setUpTime": "yy-mm-dd"
+        },
+        dataType: "JSON"
+    }
+
+GET:
+    Get vehicles list {
+        url: http://localhost:3000/api/vehicle 
+    }
         
-    
+--DATA 
+POST:
+    Setup properties {
+        url: http://localhost:3000/api/data/setup,
+        data: {
+            "vehicle_name": "67-AC-072.68",
+            "column": "S1",
+            "value": "021"
+        },
+        dataType: "JSON"
+    }
+
+GET: 
+    Get data {
+        url: http://localhost:3000/api/data?vehicle_name={'vehicle name to get data'}&limit={'number of data (x10)'},
+    }
+
+    Delete setup {
+        url: http://localhost:3000/api/data/deleteSetup?vehicle_name={'vehicle name to get data'}&column={'column will be deleted set up'},
+    }
+

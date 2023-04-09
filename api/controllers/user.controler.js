@@ -7,7 +7,6 @@ async function logIn(req, res, next) {
 
         const respone = await userService.logIn(name, password);
         if(respone.code == 1) {
-            console.log(respone.user);
             req.session.user = JSON.stringify(respone.user);
             res.status(200).json({
                 code: 200,
