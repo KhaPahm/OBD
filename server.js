@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const router = require('./api/routes/index')
+const cors = require('cors')
 require('dotenv').config()
 
 
@@ -15,6 +16,7 @@ const app = express();
 //Express urlencode;
 app.use(express.json())
 app.use(express.urlencoded({extended: false}));
+app.use(cors())
 
 //Express session
 app.use(require("express-session")({secret: process.env.SESSION_SECRECT_KEY||"thisismysecrctekeyfhrgfgrfrty84fwir767"}))
