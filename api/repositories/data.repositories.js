@@ -25,12 +25,12 @@ async function getSetup(vehicle_name) {
 }
 
 async function getData(queryColumn, vehicle_name, limit) {
-    const queryString = `SELECT ${queryColumn} FROM Data WHERE Vehicle_Name = ? LIMIT ?`;
+    const queryString = `SELECT ${queryColumn} FROM Data WHERE Vehicle_Name = '${vehicle_name}' LIMIT ${limit}`;
     console.log(queryColumn, vehicle_name, limit);
     console.log(queryString);
     const record = await db.query(
         queryString,
-        [vehicle_name, limit]
+        []
     );
     return record
 }
