@@ -8,7 +8,6 @@ async function query(sql, params) {
         password: process.env.DB_PASSWORD || "12345678",
         database: process.env.DB_NAME || "OBD",
     })
-    console.log(sql);
     const [results, ] = await con.execute(sql, params);
     return results;
 }

@@ -36,7 +36,6 @@ async function getData(vehicle_name, limit) {
 
         const datas = await dataRepository.getData(conlumnDataQuery, vehicle_name, limitData);
         const respone = [];
-        console.log(datas);
 
         datas.forEach((value) => {
             const v = Object.values(value);
