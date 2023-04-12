@@ -1,6 +1,7 @@
 const userRepository = require('../repositories/user.repository');
 const path = require('path');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const { log } = require('console');
 
 // async function hashPassword(password) 
 

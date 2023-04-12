@@ -30,18 +30,24 @@ async function getData(vehicle_name, limit) {
 
         const conlumnData = Object.keys(newData);
         const keys = Object.values(newData);
-        const conlumnDataQuery = conlumnData.toString();
+        const conlumnDataQuery = "Time," + conlumnData.toString();
 
-        const limitData = limit * 10;
+        const limitData = Number(limit) * 10;
+        console.log(conlumnDataQuery, vehicle_name, limitData);
         
         const datas = await dataRepository.getData(conlumnDataQuery, vehicle_name, limitData);
         const respone = [];
+        console.log(datas);
 
         datas.forEach((value) => {
             const v = Object.values(value);
             object = {};
-            for(let i = 0; i < keys.length; i++) {
-                object[keys[i]] = v[i]; 
+            for(let i = 0; i < keys.length+1; i++) {
+                if(i == 0) {
+                    object["Time"] = v[i];
+                } else {
+                    object[keys[i]] = v[i]; 
+                }
             }
             respone.push(object);
         });
