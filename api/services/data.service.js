@@ -33,8 +33,7 @@ async function getData(vehicle_name, limit) {
         const conlumnDataQuery = "Time," + conlumnData.toString();
 
         const limitData = Number(limit) * 10;
-        console.log(conlumnDataQuery, vehicle_name, limitData);
-        
+
         const datas = await dataRepository.getData(conlumnDataQuery, vehicle_name, limitData);
         const respone = [];
         console.log(datas);
