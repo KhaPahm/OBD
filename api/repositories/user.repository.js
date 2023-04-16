@@ -10,7 +10,7 @@ async function getAccount(name) {
         console.log(record);
         return record;
     } catch(err) {
-        console.log("Erro when select data from database!");
+        console.log("Erro when select data from database!" + err);
         throw err;
     }
 }
