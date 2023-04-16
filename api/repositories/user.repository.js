@@ -1,11 +1,13 @@
 const db = require('./db');
 
 async function getAccount(name) {
+    console.log(name);
     try {
         const record = await db.query(
             `SELECT * FROM User WHERE User_name = ?`,
             [name]
         )
+        console.log(record);
         return record;
     } catch(err) {
         console.log("Erro when select data from database!");

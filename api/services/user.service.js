@@ -8,8 +8,8 @@ const generateToken =  async (payload, secrectSign) => {
         console.log(access_token);
         return access_token;
     }  catch(error) {
-      console.log(`Error in generate access token: ${erro}`);
-      return null;
+        console.log(`Error in generate access token: ${erro}`);
+        return null;
     }
 }
 
