@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken')
 
 const generateToken =  async (payload, secrectSign) => {
     try {
-        console.log(payload, secrectSign);
-      return await jwt.sign(payload, secrectSign);
+        const access_token = await jwt.sign(payload, secrectSign);
+        console.log(access_token);
+        return access_token;
     }  catch(error) {
       console.log(`Error in generate access token: ${erro}`);
       return null;
