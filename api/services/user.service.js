@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const generateToken =  async (payload, secrectSign) => {
     try {
+        console.log(payload, secrectSign);
       return await jwt.sign(payload, secrectSign);
     }  catch(error) {
       console.log(`Error in generate access token: ${erro}`);
@@ -25,7 +26,6 @@ async function getAccount (name) {
 async function logIn (name, password) {
     try {
         const respone = await userRepository.getAccount(name);
-        console.log(respone);
         if(respone.length != 0) {
             const match = await bcrypt.compare(password,respone[0].Password)
             //Return an object with code is 1 and user is respone of query if match name and password
@@ -36,9 +36,7 @@ async function logIn (name, password) {
                     role: respone[0].Role,
                     address: respone[0].Address
                 };
-                console.log(user);
                 const signingKey = process.env.JWT_SIGN_KEY;
-                console.log(signingKey);
                 const access_token = await generateToken(user, signingKey);
                 console.log(access_token);
 
