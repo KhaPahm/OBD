@@ -7,6 +7,7 @@ async function query(sql, params) {
         user: process.env.DB_USER || "root",
         password: process.env.DB_PASSWORD || "12345678",
         database: process.env.DB_NAME || "OBD_V2",
+        port: '8889'
     })
     const [results, ] = await con.execute(sql, params);
     return results;
