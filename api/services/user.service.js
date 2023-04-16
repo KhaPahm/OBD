@@ -24,7 +24,7 @@ async function getAccount (name) {
 
 async function logIn (name, password) {
     try {
-        // console.log(name, password);
+        console.log(name, password);
         const respone = await userRepository.getAccount(name);
         if(respone.length != 0) {
             const match = await bcrypt.compare(password,respone[0].Password)
