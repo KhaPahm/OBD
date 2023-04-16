@@ -4,7 +4,6 @@ const path = require('path');
 const router = require('./api/routes/index')
 const cors = require('cors')
 require('dotenv').config()
-const cookieParser = require('cookie-parser')
 
 
 // Config environment variable
@@ -23,11 +22,6 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 })
-app.use(cookieParser());
-
-//Express session
-app.use(require("express-session")({secret: process.env.SESSION_SECRECT_KEY||"thisismysecrctekeyfhrgfgrfrty84fwir767"}))
-
 
 //Import routes
 app.get('/', (req, res, next) => {
