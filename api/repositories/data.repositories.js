@@ -1,18 +1,37 @@
 const db =  require('./db');
 
-async function updateSetUp(column, value, vehicle_name) {
+async function updateSetUp({Vehicle_name, ColunmName, Value}) {
     const respone = await db.query(
-        `UPDATE SetUp SET ${column} = ? WHERE Vehicle_Name = ?`,
-        [value, vehicle_name]
+        `INSERT INTO SetUp VALUES (?,?,?,?)`,
+        [ColunmName, Value, true, Vehicle_name]
     )
-    return respone.insertId;
+    return respone;
 }
 
 async function deleteSetUp(column, vehicle_name) {
     await db.query(
-        `UPDATE SetUp SET ${column} = NULL WHERE Vehicle_Name = ?`,
-        [vehicle_name]
+        `DELETE FROM SetUp WHERE ColunmName = ? AND Vehicle_name = ?`,
+        [column, vehicle_name]
     )
+}
+
+async function hidedata(column, vehicle_name) {
+    const check = await db.query(
+        'SELECT State FROM SetUp WHERE ColunmName = ? AND Vehicle_name = ?',
+        [column, vehicle_name]
+    )
+    if(check[0].State == 1) {
+        await db.query(
+            `UPDATE SetUp SET State = 0 WHERE ColunmName = ? AND Vehicle_name = ?`,
+            [column, vehicle_name]
+        )
+    } else {
+        await db.query(
+            `UPDATE SetUp SET State = 1 WHERE ColunmName = ? AND Vehicle_name = ?`,
+            [column, vehicle_name]
+        )
+    }
+    return !check.State
 }
 
 async function getSetup(vehicle_name) {
@@ -24,9 +43,17 @@ async function getSetup(vehicle_name) {
     return record; 
 }
 
-async function getData(queryColumn, vehicle_name, limit) {
-    const queryString = `SELECT ${queryColumn} FROM Data WHERE Vehicle_Name = '${vehicle_name}' LIMIT ${limit}`;
+// async function getColunmNameOfSetUp(vehicle_name) {
+//     const record =  await db.query(
+//         `SELECT ColunmName FROM SetUp WHERE Vehicle_Name = ?`,
+//         [vehicle_name]
+//     );
 
+//     return record; 
+// }
+
+async function getData(queryColumn, vehicle_name, limit) {
+    const queryString = `SELECT ${queryColumn} FROM Data WHERE Vehicle_name = '${vehicle_name}' LIMIT ${limit}`;
     const record = await db.query(
         queryString,
         []
@@ -35,5 +62,5 @@ async function getData(queryColumn, vehicle_name, limit) {
 }
 
 module.exports = {
-    updateSetUp, deleteSetUp, getSetup, getData
+    updateSetUp, deleteSetUp, getSetup, getData, hidedata
 }

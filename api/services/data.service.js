@@ -1,11 +1,21 @@
 const dataRepository = require('../repositories/data.repositories');
 
-async function updateSetUp(column, value, vehicle_name) {
+async function updateSetUp({Vehicle_name, ColunmName, Value}) {
     try {
-        const id = await dataRepository.updateSetUp(column, value, vehicle_name);
-        return id;
+        const result = await dataRepository.updateSetUp({Vehicle_name, ColunmName, Value});
+        return result;
     } catch(err) {
         throw new Error('Service: Cannot update setup');
+    }
+}
+
+async function getSetUp(Vehicle_name) {
+    try {
+        const result = await dataRepository.getSetup(Vehicle_name);
+        return result;
+    } catch(err) {
+        throw new Error('Service: Cannot get setup');
+
     }
 }
 
@@ -17,34 +27,44 @@ async function deleteSetUp(column, vehicle_name) {
     }
 }
 
+async function hidedata(column, vehicle_name) {
+    try {
+        await dataRepository.hidedata(column, vehicle_name);
+    } catch(err) {
+        throw new Error('Service: Cannot hide setup');
+    }
+}
+
 async function getData(vehicle_name, limit) {
     try {
         const setup = await dataRepository.getSetup(vehicle_name);
-        let setup_data = setup[0];
-        let newData = {}
-        Object.entries(setup_data)
-            .filter(([, value]) => value !== null)
-            .forEach(([key, value]) => (newData[key] = value));
-        delete newData.Vehicle_Name;
-        delete newData.SetUp_ID;
+        if (setup.length <= 0) {
+            return null
+        }
+        let stringQuery = "";
+        let colunmName = [];
+        for(let i = 0; i < setup.length; i++) {
+            if(setup[i].State == 1) {
+                stringQuery = stringQuery + "," + setup[i].ColunmName;
+                colunmName.push(setup[i].Value)
+            }
+        }
 
-        const conlumnData = Object.keys(newData);
-        const keys = Object.values(newData);
-        const conlumnDataQuery = "Time," + conlumnData.toString();
+        stringQuery =  "Time," + stringQuery.slice(1);
 
         const limitData = Number(limit) * 10;
 
-        const datas = await dataRepository.getData(conlumnDataQuery, vehicle_name, limitData);
+        const datas = await dataRepository.getData(stringQuery, vehicle_name, limitData);
         const respone = [];
 
         datas.forEach((value) => {
             const v = Object.values(value);
             object = {};
-            for(let i = 0; i < keys.length+1; i++) {
+            for(let i = 0; i < colunmName.length+1; i++) {
                 if(i == 0) {
                     object["Time"] = v[i];
                 } else {
-                    object[keys[i]] = v[i]; 
+                    object[colunmName[i-1]] = v[i]; 
                 }
             }
             respone.push(object);
@@ -57,5 +77,5 @@ async function getData(vehicle_name, limit) {
 }
 
 module.exports = {
-    updateSetUp, deleteSetUp, getData
+    updateSetUp, deleteSetUp, getData, getSetUp, hidedata
 }

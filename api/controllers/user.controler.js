@@ -6,11 +6,11 @@ async function logIn(req, res, next) {
         const password = req.body.password;
 
         const respone = await userService.logIn(name, password);
-        if(respone.code == 1) {
-            req.session.user = JSON.stringify(respone.user);
+        
+        if(respone) {
             res.status(200).json({
                 code: 200,
-                message: "Login success!"
+                access_token: respone
             })
         } else {
             res.status(401).json({
@@ -30,6 +30,7 @@ async function registerAccount(req, res, next) {
         const name =  req.body.name;
         const password = req.body.password;
         const address = req.body.address;
+        // console.log(name, password, address);
         const respone = await userService.registerAccount(name, password,address);
         if(respone) {
             res.status(200).json({
