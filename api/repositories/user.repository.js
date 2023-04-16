@@ -7,7 +7,6 @@ async function getAccount(name) {
             `SELECT * FROM User WHERE User_name = ?`,
             [name]
         )
-        console.log(record);
         return record;
     } catch(err) {
         console.log("Erro when select data from database!" + err);
