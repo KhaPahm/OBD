@@ -7,9 +7,9 @@ async function query(sql, params) {
         user: process.env.DB_USER || "root",
         password: process.env.DB_PASSWORD || "12345678",
         database: process.env.DB_NAME || "OBD_V2",
-        port: '3306',
-        socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
+        port: '3306'
     })
+    console.log('CONECT DB SUCESSS');
     const [results, ] = await con.execute(sql, params);
     return results;
 }
