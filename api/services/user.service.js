@@ -38,7 +38,6 @@ async function logIn (name, password) {
                 };
                 const signingKey = process.env.JWT_SIGN_KEY;
                 const access_token = await generateToken(user, signingKey);
-                console.log(access_token);
 
                 return access_token;
             } else {
