@@ -1,7 +1,6 @@
 const db = require('./db');
 
 async function getAccount(name) {
-    console.log(name);
     try {
         const record = await db.query(
             `SELECT * FROM User WHERE User_name = ?`,

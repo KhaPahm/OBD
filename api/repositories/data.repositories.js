@@ -1,11 +1,15 @@
 const db =  require('./db');
 
 async function updateSetUp({Vehicle_name, ColunmName, Value}) {
-    const respone = await db.query(
-        `INSERT INTO SetUp VALUES (?,?,?,?)`,
-        [ColunmName, Value, true, Vehicle_name]
-    )
-    return respone;
+    try{
+        const respone = await db.query(
+            `INSERT INTO SetUp VALUES (?,?,?,?)`,
+            [ColunmName, Value, true, Vehicle_name]
+        )
+        return respone;
+    } catch(err) {
+        throw(err);
+    }
 }
 
 async function deleteSetUp(column, vehicle_name) {

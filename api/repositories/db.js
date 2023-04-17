@@ -8,7 +8,8 @@ async function query(sql, params) {
         password: process.env.DB_PASSWORD || "12345678",
         database: process.env.DB_NAME || "OBD_V2",
         port: '3306',
-        socketPath: '/var/run/mysqld/mysqld.sock'
+        dateStrings: true,
+        decimalNumbers: false
     })
     const [results, ] = await con.execute(sql, params);
     return results;

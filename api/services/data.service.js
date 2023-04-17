@@ -45,12 +45,12 @@ async function getData(vehicle_name, limit) {
         let colunmName = [];
         for(let i = 0; i < setup.length; i++) {
             if(setup[i].State == 1) {
-                stringQuery = stringQuery + "," + setup[i].ColunmName;
+                stringQuery = stringQuery + ", ROUND(" + setup[i].ColunmName + ", 2)";
                 colunmName.push(setup[i].Value)
             }
         }
 
-        stringQuery =  "Time," + stringQuery.slice(1);
+        stringQuery =  "DATE_FORMAT(Time,\'%m-%d-%Y\ %r')," + stringQuery.slice(1);
 
         const limitData = Number(limit) * 10;
 
